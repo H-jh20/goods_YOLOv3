@@ -33,7 +33,7 @@ def parse_args():
     parser.add_argument('--checkpoint_dir', type=str,
                         default='checkpoints',
                         help='directory where checkpoint files are saved')
-    parser.add_argument('--use_cuda', type=bool, default=True)
+    parser.add_argument('--use_cuda', type=bool, default=False)
     parser.add_argument('--debug', action='store_true', default=False,
                         help='debug mode where only one image is trained')
     parser.add_argument(
@@ -53,7 +53,7 @@ def main():
 
     # Parse config settings
     with open(args.cfg, 'r') as f:
-        cfg = yaml.load(f)
+        cfg = yaml.safe_load(f)
 
     print("successfully loaded config file: ", cfg)
 
@@ -110,17 +110,16 @@ def main():
 
     imgsize = cfg['TRAIN']['IMGSIZE']
     dataset = COCODataset(model_type=cfg['MODEL']['TYPE'],
-                  data_dir='COCO/',
+                  data_dir='GOOD_COCO/',
                   img_size=imgsize,
                   augmentation=cfg['AUGMENTATION'],
                   debug=args.debug)
-
     dataloader = torch.utils.data.DataLoader(
         dataset, batch_size=batch_size, shuffle=True, num_workers=args.n_cpu)
     dataiterator = iter(dataloader)
 
     evaluator = COCOAPIEvaluator(model_type=cfg['MODEL']['TYPE'],
-                    data_dir='COCO/',
+                    data_dir='GOOD_COCO/',
                     img_size=cfg['TEST']['IMGSIZE'],
                     confthre=cfg['TEST']['CONFTHRE'],
                     nmsthre=cfg['TEST']['NMSTHRE'])

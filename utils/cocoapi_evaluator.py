@@ -35,8 +35,7 @@ class COCOAPIEvaluator():
                                    data_dir=data_dir,
                                    img_size=img_size,
                                    augmentation=augmentation,
-                                   json_file='instances_val2017.json',
-                                   name='val2017')
+                                   json_file='instances_val.json')
         self.dataloader = torch.utils.data.DataLoader(
             self.dataset, batch_size=1, shuffle=False, num_workers=0)
         self.img_size = img_size

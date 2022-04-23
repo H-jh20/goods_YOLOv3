@@ -13,8 +13,8 @@ class COCODataset(Dataset):
     """
     COCO dataset class.
     """
-    def __init__(self, model_type, data_dir='COCO', json_file='instances_train2017.json',
-                 name='train2017', img_size=416,
+    def __init__(self, model_type, data_dir='COCO', json_file='instances_train.json',
+                 name='images', img_size=416,
                  augmentation=None, min_size=1, debug=False):
         """
         COCO dataset initialization. Annotation data are read into memory by COCO API.
